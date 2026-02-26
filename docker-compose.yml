@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  kurtech:
+    build: .
+    container_name: kurtech-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"        # direkt erreichbar; oder hinter Nginx: "127.0.0.1:3000:3000"
+    volumes:
+      - kurtech-data:/app/data   # SQLite-Datenbank persistent
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  kurtech-data:
